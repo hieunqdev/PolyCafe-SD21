@@ -4,6 +4,9 @@
  */
 package poly.cafe.ui;
 
+import poly.cafe.ui.manager.CategoryManagerJDialog;
+import poly.cafe.util.GlobalState;
+
 /**
  *
  * @author Admin
@@ -20,6 +23,21 @@ public class PolyCafeJFrame extends javax.swing.JFrame {
         // Nghĩa là: từ màn hình này gọi đến màn hình khác
         LoginJDialog loginJDialog = new LoginJDialog(this, true); 
         loginJDialog.setVisible(true);
+        
+        
+        // Phân quyền xem các nút 
+        // Nhân viên: Ẩn 6 nút trong ảnh
+        if (GlobalState.Manager == false) {
+            btnDoUong.setVisible(false);
+            btnLoaiDoUong.setVisible(false);
+            btnTheDinhDanh.setVisible(false);
+            btnPhieuBanHang.setVisible(false);
+            btnNguoiSuDung.setVisible(false);
+            btnDoanhThu.setVisible(false);
+        }
+        
+        // Hiện tên user đăng nhập
+        txtFullname.setText(GlobalState.Fullname);
     }
 
     /**
@@ -32,17 +50,17 @@ public class PolyCafeJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        txtFullname = new javax.swing.JTextField();
+        btnBanHang = new javax.swing.JButton();
+        btnLichSu = new javax.swing.JButton();
+        btnDoiMatKhau = new javax.swing.JButton();
+        btnKetThuc = new javax.swing.JButton();
+        btnDoUong = new javax.swing.JButton();
+        btnPhieuBanHang = new javax.swing.JButton();
+        btnLoaiDoUong = new javax.swing.JButton();
+        btnNguoiSuDung = new javax.swing.JButton();
+        btnTheDinhDanh = new javax.swing.JButton();
+        btnDoanhThu = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,39 +68,42 @@ public class PolyCafeJFrame extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon("D:\\PolyCafe\\src\\main\\resources\\icons\\trump-small.png")); // NOI18N
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 66, 118, 179));
+        getContentPane().add(txtFullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 263, -1, -1));
 
-        jTextField1.setText("Nguyễn Văn User 1");
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 263, -1, -1));
+        btnBanHang.setText("BÁN HÀNG");
+        getContentPane().add(btnBanHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 374, 110, 49));
 
-        jButton2.setText("BÁN HÀNG");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 374, 110, 49));
+        btnLichSu.setText("LỊCH SỬ");
+        getContentPane().add(btnLichSu, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 374, 108, 49));
 
-        jButton3.setText("LỊCH SỬ");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 374, 108, 49));
+        btnDoiMatKhau.setText("ĐỔI MẬT KHẨU");
+        getContentPane().add(btnDoiMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 502, -1, 45));
 
-        jButton4.setText("ĐỔI MẬT KHẨU");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 502, -1, 45));
+        btnKetThuc.setText("KẾT THÚC");
+        getContentPane().add(btnKetThuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 502, 108, 46));
 
-        jButton5.setText("KẾT THÚC");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 502, 108, 46));
+        btnDoUong.setText("ĐỒ UỐNG");
+        getContentPane().add(btnDoUong, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 140, 50));
 
-        jButton6.setText("ĐỒ UỐNG");
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 140, 50));
+        btnPhieuBanHang.setText("PHIẾU BÁN HÀNG");
+        getContentPane().add(btnPhieuBanHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 480, 140, 50));
 
-        jButton8.setText("PHIẾU BÁN HÀNG");
-        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 480, 140, 50));
+        btnLoaiDoUong.setText("LOẠI ĐỒ UỐNG");
+        btnLoaiDoUong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoaiDoUongActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLoaiDoUong, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 370, 140, 50));
 
-        jButton9.setText("LOẠI ĐỒ UỐNG");
-        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 370, 140, 50));
+        btnNguoiSuDung.setText("NGƯỜI SỬ DỤNG");
+        getContentPane().add(btnNguoiSuDung, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 490, 140, 50));
 
-        jButton10.setText("NGƯỜI SỬ DỤNG");
-        getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 490, 140, 50));
+        btnTheDinhDanh.setText("THẺ ĐỊNH DANH");
+        getContentPane().add(btnTheDinhDanh, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 370, 140, 50));
 
-        jButton11.setText("THẺ ĐỊNH DANH");
-        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 370, 140, 50));
-
-        jButton12.setText("DOANH THU");
-        getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 470, 140, 60));
+        btnDoanhThu.setText("DOANH THU");
+        getContentPane().add(btnDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 470, 140, 60));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("D:\\PolyCafe\\src\\main\\resources\\icons\\coffee-shop.jpg")); // NOI18N
         jLabel1.setText("jLabel1");
@@ -90,6 +111,13 @@ public class PolyCafeJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoaiDoUongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoaiDoUongActionPerformed
+        // TODO add your handling code here:
+        // Nhảy sang màn hình Quản lý Loại đồ uống
+        CategoryManagerJDialog categoryManagerJDialog = new CategoryManagerJDialog(this, true); 
+        categoryManagerJDialog.setVisible(true);
+    }//GEN-LAST:event_btnLoaiDoUongActionPerformed
 
     /**
      * @param args the command line arguments
@@ -127,18 +155,18 @@ public class PolyCafeJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBanHang;
+    private javax.swing.JButton btnDoUong;
+    private javax.swing.JButton btnDoanhThu;
+    private javax.swing.JButton btnDoiMatKhau;
+    private javax.swing.JButton btnKetThuc;
+    private javax.swing.JButton btnLichSu;
+    private javax.swing.JButton btnLoaiDoUong;
+    private javax.swing.JButton btnNguoiSuDung;
+    private javax.swing.JButton btnPhieuBanHang;
+    private javax.swing.JButton btnTheDinhDanh;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtFullname;
     // End of variables declaration//GEN-END:variables
 }

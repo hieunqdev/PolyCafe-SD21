@@ -4,7 +4,9 @@
  */
 package poly.cafe.ui;
 
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
+import poly.cafe.util.Auth;
 
 /**
  *
@@ -37,10 +39,10 @@ public class LoginJDialog extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        txtTenDangNhap = new javax.swing.JTextField();
+        pwdMatKhau = new javax.swing.JPasswordField();
+        btnDangNhap = new javax.swing.JButton();
+        btnKetThuc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -52,9 +54,19 @@ public class LoginJDialog extends javax.swing.JDialog {
 
         jLabel3.setText("Mật khẩu");
 
-        jButton2.setText("Đăng nhập");
+        btnDangNhap.setText("Đăng nhập");
+        btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangNhapActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Kết thúc");
+        btnKetThuc.setText("Kết thúc");
+        btnKetThuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKetThucActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,9 +76,9 @@ public class LoginJDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(btnDangNhap)
                         .addGap(47, 47, 47)
-                        .addComponent(jButton3))
+                        .addComponent(btnKetThuc))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(61, 61, 61)
@@ -78,8 +90,8 @@ public class LoginJDialog extends javax.swing.JDialog {
                                         .addComponent(jLabel2)
                                         .addComponent(jLabel3))
                                     .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(jPasswordField1)
-                                .addComponent(jTextField1)))
+                                .addComponent(pwdMatKhau)
+                                .addComponent(txtTenDangNhap)))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(267, 267, 267)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,20 +112,55 @@ public class LoginJDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pwdMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnDangNhap)
+                    .addComponent(btnKetThuc))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnKetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetThucActionPerformed
+        // TODO add your handling code here:
+        // Đóng chương trình
+        System.exit(0);
+    }//GEN-LAST:event_btnKetThucActionPerformed
+
+    private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
+        // TODO add your handling code here:
+        // Đăng nhập: 
+        // Thành công: Vào trang PolyCafeJFrame
+        // Thất bại: Hiện thông báo
+        
+        if (txtTenDangNhap.getText() == null || txtTenDangNhap.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên đăng nhập không được để trống!");
+            return;
+        } 
+        
+        if (pwdMatKhau.getPassword() == null || new String(pwdMatKhau.getPassword()).isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống!");
+            return;
+        }
+        
+        String tenDangNhap = txtTenDangNhap.getText();
+        String matKhau = new String(pwdMatKhau.getPassword());
+        
+        boolean checkDangNhap = Auth.DangNhap(tenDangNhap, matKhau);
+        
+        if (checkDangNhap == false) {
+            JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng!");
+        } else {
+            this.dispose();
+        }
+        
+    }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,14 +205,14 @@ public class LoginJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDangNhap;
+    private javax.swing.JButton btnKetThuc;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField pwdMatKhau;
+    private javax.swing.JTextField txtTenDangNhap;
     // End of variables declaration//GEN-END:variables
 }

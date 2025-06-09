@@ -4,6 +4,13 @@
  */
 package poly.cafe.ui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import poly.cafe.dao.CategoryDAO;
+import poly.cafe.dao.DrinkDAO;
+import poly.cafe.entity.Category;
+import poly.cafe.entity.Drink;
+
 /**
  *
  * @author Admin
@@ -16,6 +23,21 @@ public class DrinkJDialog extends javax.swing.JDialog {
     public DrinkJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        findAllLoaiDoUong();
+    }
+    
+    public void findAllLoaiDoUong() {
+        List<Category> categoryLst = CategoryDAO.findAll();
+        
+        DefaultTableModel tblLoaiDoUong = (DefaultTableModel) this.tblLoaiDoUong.getModel();
+        tblLoaiDoUong.setRowCount(0);
+        
+        for (Category category : categoryLst) {
+            tblLoaiDoUong.addRow(new Object[] {
+                category.getId(),
+                category.getName()
+            });
+        }
     }
 
     /**
@@ -27,21 +49,87 @@ public class DrinkJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblLoaiDoUong = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDoUong = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        tblLoaiDoUong.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Mã", "Loại đồ uống"
+            }
+        ));
+        tblLoaiDoUong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLoaiDoUongMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblLoaiDoUong);
+
+        tblDoUong.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Mã", "Tên đồ uống", "Đơn giá", "Giảm giá"
+            }
+        ));
+        jScrollPane2.setViewportView(tblDoUong);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblLoaiDoUongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoaiDoUongMouseClicked
+        // TODO add your handling code here:
+        int soHangNgangDuocChon = tblLoaiDoUong.getSelectedRow();
+        
+        String maLoaiDoUong = tblLoaiDoUong.getValueAt(soHangNgangDuocChon, 0).toString();
+        
+        List<Drink> drinkLst = DrinkDAO.findAll(maLoaiDoUong);
+        
+        DefaultTableModel tblDoUong = (DefaultTableModel) this.tblDoUong.getModel();
+        tblDoUong.setRowCount(0);
+        
+        for (Drink drink : drinkLst) {
+            tblDoUong.addRow(new Object[] {
+                drink.getId(),
+                drink.getName(),
+                drink.getUnitPrice(),
+                drink.getDiscount()
+            });
+        }
+    }//GEN-LAST:event_tblLoaiDoUongMouseClicked
 
     /**
      * @param args the command line arguments
@@ -86,5 +174,9 @@ public class DrinkJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblDoUong;
+    private javax.swing.JTable tblLoaiDoUong;
     // End of variables declaration//GEN-END:variables
 }
